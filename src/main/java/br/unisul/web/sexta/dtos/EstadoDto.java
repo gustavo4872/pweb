@@ -1,37 +1,38 @@
 package br.unisul.web.sexta.dtos;
 
-import br.unisul.web.sexta.domain.Categoria;
+import br.unisul.web.sexta.domain.Estado;
 
-public class CategoriaDto {
+public class EstadoDto {
 
-	private static final long serialVersionUID = 1L;
-	
-	public CategoriaDto() {
-	
+	public EstadoDto() {
 	}
-
-	public CategoriaDto(Integer id, String nome) {
+	
+	public EstadoDto(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}
 	
-	public CategoriaDto(Categoria c) {
-		id = c.getId();
-		nome = c.getNome();
+	public EstadoDto(Estado e) {
+		id = e.getId();
+		nome = e.getNome();
 	}
-	
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	private String nome;
 	
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -52,7 +53,7 @@ public class CategoriaDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoriaDto other = (CategoriaDto) obj;
+		EstadoDto other = (EstadoDto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
