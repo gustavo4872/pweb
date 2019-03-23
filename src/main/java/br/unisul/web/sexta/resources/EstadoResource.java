@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.unisul.web.sexta.domain.Estado;
-import br.unisul.web.sexta.dtos.EstadoDto;
+import br.unisul.web.sexta.dtos.EstadoDTO;
 import br.unisul.web.sexta.services.EstadoService;
-
-@RestController
-@RequestMapping(value="/estados")
+//Resource disponibiliza URLS
+@RestController //Padrão de troca de dados REST
+@RequestMapping(value="/estados") //Definição de URL
 public class EstadoResource {
 
-	@Autowired
+	@Autowired //Para não criar muitas variaveis
 	private EstadoService service;
 	
 	//BUSCA POR ID
-	@RequestMapping(value= "{id}", method= RequestMethod.GET)
+	@RequestMapping(value= "{id}", method= RequestMethod.GET) //{id} variavel
 	public ResponseEntity<Estado> find(@PathVariable Integer id){
 		Estado obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
@@ -55,11 +55,11 @@ public class EstadoResource {
 			
 	//LISTAR TODAS
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<EstadoDto>> findAll() {
+	public ResponseEntity<List<EstadoDTO>> findAll() {
 		List<Estado> lista = service.findAll();
-		List<EstadoDto> listDto = new ArrayList<EstadoDto>();
+		List<EstadoDTO> listDto = new ArrayList<EstadoDTO>();
 		for (Estado e : lista) {
-			listDto.add(new EstadoDto(e));
+			listDto.add(new EstadoDTO(e));
 		}
 		return ResponseEntity.ok().body(listDto);		
 	}

@@ -19,8 +19,8 @@ public class Estado implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id //Identificador da tabela
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Estratégia de geração da chave primaria
 	private Integer id;
 	private String nome;
 	

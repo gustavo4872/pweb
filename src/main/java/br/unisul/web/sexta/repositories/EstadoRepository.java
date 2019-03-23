@@ -6,5 +6,5 @@ import br.unisul.web.sexta.domain.Estado;
 
 @Repository
 public interface EstadoRepository extends JpaRepository<Estado, Integer>{
-
+//JpaRepository<Domain, Chave primaria domain>
 }

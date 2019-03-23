@@ -10,7 +10,7 @@ import br.unisul.web.sexta.repositories.EstadoRepository;
 
 @Service
 public class EstadoService {
-
+	
 	@Autowired
 	private EstadoRepository rep;
 	

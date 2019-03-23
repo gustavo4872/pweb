@@ -2,20 +2,20 @@ package br.unisul.web.sexta.dtos;
 
 import br.unisul.web.sexta.domain.Categoria;
 
-public class CategoriaDto {
+public class CategoriaDTO {
 
 	private static final long serialVersionUID = 1L;
 	
-	public CategoriaDto() {
+	public CategoriaDTO() {
 	
 	}
 
-	public CategoriaDto(Integer id, String nome) {
+	public CategoriaDTO(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}
 	
-	public CategoriaDto(Categoria c) {
+	public CategoriaDTO(Categoria c) {
 		id = c.getId();
 		nome = c.getNome();
 	}
@@ -52,7 +52,7 @@ public class CategoriaDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoriaDto other = (CategoriaDto) obj;
+		CategoriaDTO other = (CategoriaDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

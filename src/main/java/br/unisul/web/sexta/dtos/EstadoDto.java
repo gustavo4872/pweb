@@ -1,18 +1,19 @@
 package br.unisul.web.sexta.dtos;
 
 import br.unisul.web.sexta.domain.Estado;
+//DTO é muito parecida com domain
+//DTO tem que ter construtor que recebe domain
+public class EstadoDTO {
 
-public class EstadoDto {
-
-	public EstadoDto() {
+	public EstadoDTO() {
 	}
 	
-	public EstadoDto(Integer id, String nome) {
+	public EstadoDTO(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}
 	
-	public EstadoDto(Estado e) {
+	public EstadoDTO(Estado e) {
 		id = e.getId();
 		nome = e.getNome();
 	}
@@ -53,7 +54,7 @@ public class EstadoDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EstadoDto other = (EstadoDto) obj;
+		EstadoDTO other = (EstadoDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
