@@ -5,9 +5,11 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.unisul.web.sexta.domain.Categoria;
+import br.unisul.web.sexta.domain.Cidade;
 import br.unisul.web.sexta.domain.Estado;
 import br.unisul.web.sexta.domain.Produto;
 import br.unisul.web.sexta.repositories.CategoriaRepository;
+import br.unisul.web.sexta.repositories.CidadeRepository;
 import br.unisul.web.sexta.repositories.EstadoRepository;
 import br.unisul.web.sexta.repositories.ProdutoRepository;
 
@@ -23,6 +25,9 @@ public class DbService {
 	@Autowired
 	private ProdutoRepository prodRep;
 	
+	@Autowired
+	private CidadeRepository cidRep;
+	
 	public void inicializaBancoDeDados() throws ParseException {
 		
 		Categoria cat1 = new Categoria(null, "Informática");
@@ -36,7 +41,20 @@ public class DbService {
 		Estado e1 = new Estado(null, "Paraná");
 		Estado e2 = new Estado(null, "Santa Catarina");
 		Estado e3 = new Estado(null, "Rio Grande do Sul");
+		
+		Cidade c1 = new Cidade(null, "Curitiba", e1);
+		Cidade c2 = new Cidade(null, "Tubarão", e2);
+		Cidade c3 = new Cidade(null, "Gravatal", e2);
+		Cidade c4 = new Cidade(null, "Laguna", e2);
+		Cidade c5 = new Cidade(null, "Porto Alegre", e3);
+		Cidade c6 = new Cidade(null, "Guaíba", e3);
+		
+		e1.getCidades().addAll(Arrays.asList(c1));
+		e2.getCidades().addAll(Arrays.asList(c2, c3, c4));
+		e3.getCidades().addAll(Arrays.asList(c5, c6));
+		
 		estRep.saveAll(Arrays.asList(e1,e2,e3));
+		cidRep.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6));
 		
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -50,4 +68,5 @@ public class DbService {
 		catRep.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		prodRep.saveAll(Arrays.asList(p1,p2,p3));
 	}
+
 }

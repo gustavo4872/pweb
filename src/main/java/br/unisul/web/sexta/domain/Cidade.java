@@ -1,45 +1,37 @@
 package br.unisul.web.sexta.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Estado implements Serializable{
+public class Cidade implements Serializable{
+	private static final long serialVersionUID = 1L;
 
-	public Estado() {
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
-	public Estado(Integer id, String nome) {
+	private String nome;
+
+	@ManyToOne
+	@JoinColumn(name = "estado_id")
+	private Estado estado;
+	
+
+	public Cidade() {
+	}
+
+	public Cidade(Integer id, String nome, Estado estado) {
+		super();
 		this.id = id;
 		this.nome = nome;
-	}
-	
-	private static final long serialVersionUID = 1L;
-	
-	@Id //Identificador da tabela
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //Estratégia de geração da chave primaria
-	private Integer id;
-	private String nome;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="estado")
-	private List<Cidade> cidades = new ArrayList<>();
-  
-	public List<Cidade> getCidades() {
-		return cidades;
-	}
-
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
+		this.estado = estado;
 	}
 
 	public Integer getId() {
@@ -57,6 +49,15 @@ public class Estado implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
 	
 	@Override
 	public int hashCode() {
@@ -65,7 +66,7 @@ public class Estado implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -74,7 +75,7 @@ public class Estado implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		Cidade other = (Cidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -82,4 +83,7 @@ public class Estado implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 }
+

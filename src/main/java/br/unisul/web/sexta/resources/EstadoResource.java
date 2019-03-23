@@ -3,6 +3,8 @@ package br.unisul.web.sexta.resources;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import br.unisul.web.sexta.domain.Cidade;
 import br.unisul.web.sexta.domain.Estado;
+import br.unisul.web.sexta.dtos.CidadeDTO;
 import br.unisul.web.sexta.dtos.EstadoDTO;
+import br.unisul.web.sexta.services.CidadeService;
 import br.unisul.web.sexta.services.EstadoService;
 //Resource disponibiliza URLS
 @RestController //Padrão de troca de dados REST
@@ -21,6 +27,9 @@ public class EstadoResource {
 
 	@Autowired //Para não criar muitas variaveis
 	private EstadoService service;
+
+	@Autowired
+	private CidadeService cidadeService;
 	
 	//BUSCA POR ID
 	@RequestMapping(value= "{id}", method= RequestMethod.GET) //{id} variavel
@@ -62,5 +71,13 @@ public class EstadoResource {
 			listDto.add(new EstadoDTO(e));
 		}
 		return ResponseEntity.ok().body(listDto);		
+	}
+	
+	//LISTAR CIDADES DE UM ESTADO
+	@RequestMapping(value="/{estadoId}/cidades", method=RequestMethod.GET)
+	public ResponseEntity<List<CidadeDTO>> findCidades(@PathVariable Integer estadoId) {
+		List<Cidade> list = cidadeService.findByEstado(estadoId);
+		List<CidadeDTO> listDto = list.stream().map(obj -> new CidadeDTO(obj)).collect(Collectors.toList());  
+		return ResponseEntity.ok().body(listDto);
 	}
 }
