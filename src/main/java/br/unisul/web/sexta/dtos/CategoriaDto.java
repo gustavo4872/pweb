@@ -1,8 +1,10 @@
 package br.unisul.web.sexta.dtos;
 
+import java.io.Serializable;
+
 import br.unisul.web.sexta.domain.Categoria;
 
-public class CategoriaDTO {
+public class CategoriaDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	

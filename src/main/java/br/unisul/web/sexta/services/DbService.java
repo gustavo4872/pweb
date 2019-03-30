@@ -6,10 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.unisul.web.sexta.domain.Categoria;
 import br.unisul.web.sexta.domain.Cidade;
+import br.unisul.web.sexta.domain.Cliente;
+import br.unisul.web.sexta.domain.Endereco;
 import br.unisul.web.sexta.domain.Estado;
 import br.unisul.web.sexta.domain.Produto;
+import br.unisul.web.sexta.domain.enums.TipoCliente;
 import br.unisul.web.sexta.repositories.CategoriaRepository;
 import br.unisul.web.sexta.repositories.CidadeRepository;
+import br.unisul.web.sexta.repositories.ClienteRepository;
+import br.unisul.web.sexta.repositories.EnderecoRepository;
 import br.unisul.web.sexta.repositories.EstadoRepository;
 import br.unisul.web.sexta.repositories.ProdutoRepository;
 
@@ -27,6 +32,12 @@ public class DbService {
 	
 	@Autowired
 	private CidadeRepository cidRep;
+	
+	@Autowired
+	private ClienteRepository cliRep;
+	
+	@Autowired
+	private EnderecoRepository endRep;
 	
 	public void inicializaBancoDeDados() throws ParseException {
 		
@@ -67,6 +78,15 @@ public class DbService {
 		
 		catRep.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		prodRep.saveAll(Arrays.asList(p1,p2,p3));
+
+		Cliente cli1 = new Cliente(null, "Gustavo Carvalho", "gustavo4@gmail.com", "00000000000", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("48000000000", "000000000"));
+		
+		Endereco end1 = new Endereco(null, "Manoel da Silva", "000", "Casa", "Centro", "00000000", cli1, c2);
+		Endereco end2 = new Endereco(null, "Michel Temer", "000", "Casa", "Morrotes", "00000000", cli1, c2);
+		
+		cliRep.saveAll(Arrays.asList(cli1));
+		endRep.saveAll(Arrays.asList(end1, end2));
 	}
 
 }

@@ -1,9 +1,11 @@
 package br.unisul.web.sexta.dtos;
 
+import java.io.Serializable;
+
 import br.unisul.web.sexta.domain.Estado;
 //DTO é muito parecida com domain
 //DTO tem que ter construtor que recebe domain
-public class EstadoDTO {
+public class EstadoDTO implements Serializable{
 
 	public EstadoDTO() {
 	}
