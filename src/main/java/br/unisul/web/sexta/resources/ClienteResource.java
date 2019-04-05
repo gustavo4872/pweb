@@ -2,9 +2,7 @@ package br.unisul.web.sexta.resources;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +62,12 @@ public class ClienteResource {
 			listDto.add(new ClienteDTO(c));
 		}
 		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@RequestMapping(value="/{email}/email", method=RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@PathVariable String email) {
+		Cliente obj = service.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 }

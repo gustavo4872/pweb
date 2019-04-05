@@ -1,6 +1,7 @@
 package br.unisul.web.sexta.services;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,8 @@ import br.unisul.web.sexta.domain.Cidade;
 import br.unisul.web.sexta.domain.Cliente;
 import br.unisul.web.sexta.domain.Endereco;
 import br.unisul.web.sexta.domain.Estado;
+import br.unisul.web.sexta.domain.ItemPedido;
+import br.unisul.web.sexta.domain.Pedido;
 import br.unisul.web.sexta.domain.Produto;
 import br.unisul.web.sexta.domain.enums.TipoCliente;
 import br.unisul.web.sexta.repositories.CategoriaRepository;
@@ -16,6 +19,8 @@ import br.unisul.web.sexta.repositories.CidadeRepository;
 import br.unisul.web.sexta.repositories.ClienteRepository;
 import br.unisul.web.sexta.repositories.EnderecoRepository;
 import br.unisul.web.sexta.repositories.EstadoRepository;
+import br.unisul.web.sexta.repositories.ItemPedidoRepository;
+import br.unisul.web.sexta.repositories.PedidoRepository;
 import br.unisul.web.sexta.repositories.ProdutoRepository;
 
 @Service
@@ -38,6 +43,12 @@ public class DbService {
 	
 	@Autowired
 	private EnderecoRepository endRep;
+	
+	@Autowired
+	private PedidoRepository pedRep;
+	
+	@Autowired
+	private ItemPedidoRepository itemRep;
 	
 	public void inicializaBancoDeDados() throws ParseException {
 		
@@ -70,6 +81,7 @@ public class DbService {
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
 		Produto p3 = new Produto(null, "Mouse", 80.00);
+		
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
@@ -79,7 +91,7 @@ public class DbService {
 		catRep.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		prodRep.saveAll(Arrays.asList(p1,p2,p3));
 
-		Cliente cli1 = new Cliente(null, "Gustavo Carvalho", "gustavo4@gmail.com", "00000000000", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Gustavo Carvalho", "gustavo@gmail.com", "00000000000", TipoCliente.PESSOAFISICA);
 		cli1.getTelefones().addAll(Arrays.asList("48000000000", "000000000"));
 		
 		Endereco end1 = new Endereco(null, "Manoel da Silva", "000", "Casa", "Centro", "00000000", cli1, c2);
@@ -87,6 +99,26 @@ public class DbService {
 		
 		cliRep.saveAll(Arrays.asList(cli1));
 		endRep.saveAll(Arrays.asList(end1, end2));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, end1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, end2);
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		pedRep.saveAll(Arrays.asList(ped1, ped2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemRep.saveAll(Arrays.asList(ip1, ip2, ip3));	
 	}
 
 }

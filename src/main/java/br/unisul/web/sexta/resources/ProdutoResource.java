@@ -33,8 +33,8 @@ public class ProdutoResource {
 			@RequestParam(value = "categorias", defaultValue = "") String categorias) {
 
 		String nomeDecoded = URL.decodeParam(nome);
-		List<Integer> ids = URL.decodeIntList(categorias);
-		List<Produto> list = service.search(nomeDecoded, ids);
+		List<Integer> cods = URL.decodeIntList(categorias);
+		List<Produto> list = service.search(nomeDecoded, cods);
 		List<ProdutoDTO> listDto = new ArrayList<ProdutoDTO>();
 		for (Produto p : list) {
 			listDto.add(new ProdutoDTO(p));
