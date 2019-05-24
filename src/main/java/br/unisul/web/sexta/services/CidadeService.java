@@ -17,4 +17,8 @@ public class CidadeService {
 		return rep.findCidades(estadoId);
 	}
 
+	//LISTAR
+	public List<Cidade> findAll(){
+		return rep.findAll();
+	}
 }

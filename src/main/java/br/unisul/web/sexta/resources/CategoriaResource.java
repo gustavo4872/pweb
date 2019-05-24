@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.unisul.web.sexta.domain.Categoria;
 import br.unisul.web.sexta.dtos.CategoriaDTO;
+import br.unisul.web.sexta.resources.utils.URL;
 import br.unisul.web.sexta.services.CategoriaService;
 
 @RestController
@@ -52,7 +54,7 @@ public class CategoriaResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-		
+			
 	//LISTAR TODAS
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
@@ -62,5 +64,17 @@ public class CategoriaResource {
 			listDto.add(new CategoriaDTO(c));
 		}
 		return ResponseEntity.ok().body(listDto);		
+	}
+	
+	
+	@RequestMapping(value = "/filtro", method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> find(@RequestParam(value = "nome", defaultValue = "") String nome){		
+		String nomeDecoded = URL.decodeParam(nome);
+		List<Categoria> list = service.search(nomeDecoded);
+		List<CategoriaDTO> listDto = new ArrayList<CategoriaDTO>();
+		for (Categoria c : list) {
+			listDto.add(new CategoriaDTO(c));
+		}
+		return ResponseEntity.ok().body(listDto);
 	}
 }

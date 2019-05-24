@@ -2,7 +2,6 @@ package br.unisul.web.sexta.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.unisul.web.sexta.domain.Estado;
@@ -41,5 +40,10 @@ public class EstadoService {
 	//LISTAR
 	public List<Estado> findAll(){
 		return rep.findAll();
+	}
+	
+	//LISTAR POR NOME
+	public List<Estado> search (String nome){
+		return rep.findDistinctByNomeContainingOrderByNome(nome);
 	}
 }

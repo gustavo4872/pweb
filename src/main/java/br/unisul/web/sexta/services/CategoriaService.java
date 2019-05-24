@@ -2,10 +2,8 @@ package br.unisul.web.sexta.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.unisul.web.sexta.domain.Categoria;
 import br.unisul.web.sexta.repositories.CategoriaRepository;
 
@@ -43,4 +41,9 @@ public class CategoriaService {
 	public List<Categoria> findAll(){
 		return rep.findAll();
 	}
+	
+	public List<Categoria> search (String nome){
+		return rep.findDistinctByNomeContainingOrderByNome(nome);
+	}
+	
 }
