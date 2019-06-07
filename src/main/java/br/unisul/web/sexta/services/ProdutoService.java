@@ -28,4 +28,9 @@ public class ProdutoService {
 		return rep.findDistinctByNomeContainingAndCategoriasIn(nome, categorias);
 	}
 	
+	public Produto insert(Produto obj) {
+		obj.setId(null);
+		return rep.save(obj);
+	}
+	
 }
