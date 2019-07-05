@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class URL {
-
+	
 	public static String decodeParam(String s) {
 		try {
 			return URLDecoder.decode(s, "UTF-8");

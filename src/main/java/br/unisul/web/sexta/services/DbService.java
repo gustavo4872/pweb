@@ -5,120 +5,64 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.unisul.web.sexta.domain.Atleta;
 import br.unisul.web.sexta.domain.Categoria;
-import br.unisul.web.sexta.domain.Cidade;
-import br.unisul.web.sexta.domain.Cliente;
-import br.unisul.web.sexta.domain.Endereco;
-import br.unisul.web.sexta.domain.Estado;
-import br.unisul.web.sexta.domain.ItemPedido;
-import br.unisul.web.sexta.domain.Pedido;
-import br.unisul.web.sexta.domain.Produto;
-import br.unisul.web.sexta.domain.enums.TipoCliente;
+import br.unisul.web.sexta.domain.Evento;
+import br.unisul.web.sexta.repositories.AtletaRepository;
 import br.unisul.web.sexta.repositories.CategoriaRepository;
-import br.unisul.web.sexta.repositories.CidadeRepository;
-import br.unisul.web.sexta.repositories.ClienteRepository;
-import br.unisul.web.sexta.repositories.EnderecoRepository;
-import br.unisul.web.sexta.repositories.EstadoRepository;
-import br.unisul.web.sexta.repositories.ItemPedidoRepository;
-import br.unisul.web.sexta.repositories.PedidoRepository;
-import br.unisul.web.sexta.repositories.ProdutoRepository;
+import br.unisul.web.sexta.repositories.EventoRepository;
 
 @Service
 public class DbService {
 	
 	@Autowired
+	private EventoRepository eveRep;
+	
+	@Autowired
 	private CategoriaRepository catRep;
 	
 	@Autowired
-	private EstadoRepository estRep;
+	private AtletaRepository atlRep;
 	
-	@Autowired
-	private ProdutoRepository prodRep;
-	
-	@Autowired
-	private CidadeRepository cidRep;
-	
-	@Autowired
-	private ClienteRepository cliRep;
-	
-	@Autowired
-	private EnderecoRepository endRep;
-	
-	@Autowired
-	private PedidoRepository pedRep;
-	
-	@Autowired
-	private ItemPedidoRepository itemRep;
-	
-	public void inicializaBancoDeDados() throws ParseException {
+	public void inicializaBancoDeDados() throws ParseException{
 		
-		Categoria cat1 = new Categoria(null, "Informática");
-		Categoria cat2 = new Categoria(null, "Escritório");
-		Categoria cat3 = new Categoria(null, "Cama mesa e banho");
-		Categoria cat4 = new Categoria(null, "Eletrônicos");
-		Categoria cat5 = new Categoria(null, "Jardinagem");
-		Categoria cat6 = new Categoria(null, "Decoração");
-		Categoria cat7 = new Categoria(null, "Perfumaria");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");		
 		
-		Estado e1 = new Estado(null, "Paraná");
-		Estado e2 = new Estado(null, "Santa Catarina");
-		Estado e3 = new Estado(null, "Rio Grande do Sul");
+		Evento eve1 = new Evento(null, "Cortuba Meia Maratona Tubarão",  sdf.parse("10/10/2019 19:35"));
 		
-		Cidade c1 = new Cidade(null, "Curitiba", e1);
-		Cidade c2 = new Cidade(null, "Tubarão", e2);
-		Cidade c3 = new Cidade(null, "Gravatal", e2);
-		Cidade c4 = new Cidade(null, "Laguna", e2);
-		Cidade c5 = new Cidade(null, "Porto Alegre", e3);
-		Cidade c6 = new Cidade(null, "Guaíba", e3);
+		Categoria cat1 = new Categoria(null, "5Km Masculino", eve1);
+		Categoria cat2 = new Categoria(null, "5Km Feminino", eve1);
+		Categoria cat3 = new Categoria(null, "10Km Masculino", eve1);
+		Categoria cat4 = new Categoria(null, "10Km Feminino", eve1);
+		Categoria cat5 = new Categoria(null, "21Km Masculino", eve1);
+		Categoria cat6 = new Categoria(null, "21Km Feminino", eve1);
 		
-		e1.getCidades().addAll(Arrays.asList(c1));
-		e2.getCidades().addAll(Arrays.asList(c2, c3, c4));
-		e3.getCidades().addAll(Arrays.asList(c5, c6));
+		Atleta atl1 = new Atleta(null, "XXXX XXXX", 18, "XX");
+		Atleta atl2 = new Atleta(null, "XXXX XXXX", 19, "XX");
+		Atleta atl3 = new Atleta(null, "XXXX XXXX", 20, "XX");
+		Atleta atl4 = new Atleta(null, "XXXX XXXX", 21, "XX");
+		Atleta atl5 = new Atleta(null, "XXXX XXXX", 22, "XX");
+		Atleta atl6 = new Atleta(null, "XXXX XXXX", 23, "XX");
+		Atleta atl7 = new Atleta(null, "XXXX XXXX", 24, "XX");
+		Atleta atl8 = new Atleta(null, "XXXX XXXX", 25, "XX");
+		Atleta atl9 = new Atleta(null, "XXXX XXXX", 26, "XX");
+		Atleta atl10 = new Atleta(null, "XXXX XXXX", 27, "XX");
 		
-		estRep.saveAll(Arrays.asList(e1,e2,e3));
-		cidRep.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6));
+		eve1.getCategorias().addAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5,cat6));
+		atl1.getCategorias().addAll(Arrays.asList(cat1));
+		atl2.getCategorias().addAll(Arrays.asList(cat2));
+		atl3.getCategorias().addAll(Arrays.asList(cat3));
+		atl4.getCategorias().addAll(Arrays.asList(cat4));
+		atl5.getCategorias().addAll(Arrays.asList(cat5));
+		atl6.getCategorias().addAll(Arrays.asList(cat6));
+		atl7.getCategorias().addAll(Arrays.asList(cat1));
+		atl8.getCategorias().addAll(Arrays.asList(cat1));
+		atl9.getCategorias().addAll(Arrays.asList(cat2));
+		atl10.getCategorias().addAll(Arrays.asList(cat3));
 		
-		Produto p1 = new Produto(null, "Computador", 2000.00);
-		Produto p2 = new Produto(null, "Impressora", 800.00);
-		Produto p3 = new Produto(null, "Mouse", 80.00);
-		
-		p1.getCategorias().addAll(Arrays.asList(cat1));
-		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
-		p3.getCategorias().addAll(Arrays.asList(cat1));
-		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2));
-		
-		catRep.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
-		prodRep.saveAll(Arrays.asList(p1,p2,p3));
-
-		Cliente cli1 = new Cliente(null, "Gustavo Carvalho", "gustavo@gmail.com", "00000000000", TipoCliente.PESSOAFISICA);
-		cli1.getTelefones().addAll(Arrays.asList("48000000000", "000000000"));
-		
-		Endereco end1 = new Endereco(null, "Manoel da Silva", "000", "Casa", "Centro", "00000000", cli1, c2);
-		Endereco end2 = new Endereco(null, "Michel Temer", "000", "Casa", "Morrotes", "00000000", cli1, c2);
-		
-		cliRep.saveAll(Arrays.asList(cli1));
-		endRep.saveAll(Arrays.asList(end1, end2));
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
-		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, end1);
-		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, end2);
-		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
-		pedRep.saveAll(Arrays.asList(ped1, ped2));
-		
-		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
-		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
-		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
-
-		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
-		ped2.getItens().addAll(Arrays.asList(ip3));
-
-		p1.getItens().addAll(Arrays.asList(ip1));
-		p2.getItens().addAll(Arrays.asList(ip3));
-		p3.getItens().addAll(Arrays.asList(ip2));
-
-		itemRep.saveAll(Arrays.asList(ip1, ip2, ip3));	
+		eveRep.saveAll(Arrays.asList(eve1));
+		catRep.saveAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5,cat6));
+		atlRep.saveAll(Arrays.asList(atl1,atl2,atl3,atl4,atl5,atl6,atl7,atl8,atl9,atl10));
 	}
 
 }

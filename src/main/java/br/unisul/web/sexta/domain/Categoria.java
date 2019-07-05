@@ -7,50 +7,64 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Categoria implements Serializable{
 
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	
-	private String nome;
-	
+	private String nome;	
+	@ManyToOne
+	@JoinColumn(name = "evento_id")
+	private Evento evento;
 	@ManyToMany(mappedBy="categorias")
-	private List<Produto> produtos = new ArrayList<>();
+	private List<Atleta> atletas = new ArrayList<>();
 	
 	public Categoria() {
-		
 	}
 	
-	public Categoria(Integer id, String nome) {
+	public Categoria(Integer id, String nome, Evento evento) {
 		this.id = id;
 		this.nome = nome;
+		this.evento = evento;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public List<Produto> getProdutos() {
-		return produtos;
+
+	public Evento getEvento() {
+		return evento;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+	
+	public List<Atleta> getAtletas() {
+		return atletas;
+	}
+
+	public void setAtletas(List<Atleta> atletas) {
+		this.atletas = atletas;
 	}
 
 	@Override
@@ -60,7 +74,7 @@ private static final long serialVersionUID = 1L;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -77,5 +91,6 @@ private static final long serialVersionUID = 1L;
 			return false;
 		return true;
 	}
-
+	
+	
 }

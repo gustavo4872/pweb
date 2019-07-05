@@ -2,6 +2,7 @@ package br.unisul.web.sexta.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,36 +11,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Estado implements Serializable{
+public class Evento implements Serializable{
 
-	public Estado() {
-	}
-	
-	public Estado(Integer id, String nome) {
-		this.id = id;
-		this.nome = nome;
-	}
-	
 	private static final long serialVersionUID = 1L;
 	
-	@Id //Identificador da tabela
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //Estratégia de geração da chave primaria
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String nome;
 	
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	private Date data;
+	
 	@JsonIgnore
-	@OneToMany(mappedBy="estado")
-	private List<Cidade> cidades = new ArrayList<>();
-  
-	public List<Cidade> getCidades() {
-		return cidades;
+	@OneToMany(mappedBy="evento")
+	private List<Categoria> categorias = new ArrayList<>();
+	
+	public Evento() {
 	}
-
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
+	
+	public Evento(Integer id, String nome, Date data) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.data = data;
 	}
 
 	public Integer getId() {
@@ -57,7 +57,23 @@ public class Estado implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
 	
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,7 +81,7 @@ public class Estado implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -74,7 +90,7 @@ public class Estado implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		Evento other = (Evento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -82,4 +98,6 @@ public class Estado implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 }

@@ -1,32 +1,36 @@
 package br.unisul.web.sexta.dtos;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
-import br.unisul.web.sexta.domain.Categoria;
+import br.unisul.web.sexta.domain.Evento;
 
-public class CategoriaDTO implements Serializable{
+public class EventoDTO implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
 	private Integer id;
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Length(min=1, max=120, message="O tamanho deve ser entre 1 e 120 caracteres")
-	private String nome;
-	
-	public CategoriaDTO() {
-		
+	private String nome;	
+	@NotEmpty(message="Preenchimento obrigatório")	
+	private Date data;
+
+	public EventoDTO() {
 	}
 	
-	public CategoriaDTO(Integer id, String nome) {
+	public EventoDTO(Integer id, String nome, Date data) {
 		this.id = id;
 		this.nome = nome;
+		this.data = data;
 	}
 	
-	public CategoriaDTO(Categoria obj) {
+	public EventoDTO(Evento obj) {
 		this.id = obj.getId();
 		this.nome = obj.getNome();
+		this.data = obj.getData();
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -41,6 +45,14 @@ public class CategoriaDTO implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 	
 	@Override
@@ -58,7 +70,7 @@ public class CategoriaDTO implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoriaDTO other = (CategoriaDTO) obj;
+		EventoDTO other = (EventoDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -66,4 +78,5 @@ public class CategoriaDTO implements Serializable{
 			return false;
 		return true;
 	}
+	
 }

@@ -12,49 +12,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import br.unisul.web.sexta.domain.Categoria;
-import br.unisul.web.sexta.domain.Produto;
+import br.unisul.web.sexta.domain.Atleta;
+import br.unisul.web.sexta.dtos.AtletaDTO;
 import br.unisul.web.sexta.resources.utils.URL;
-import br.unisul.web.sexta.services.ProdutoService;
-import br.unisul.web.sexta.dtos.ProdutoDTO;
+import br.unisul.web.sexta.services.AtletaService;
 
 @RestController
-@RequestMapping(value = "/produtos")
-public class ProdutoResource {
+@RequestMapping(value = "/atletas")
+public class AtletaResource {
 
 	@Autowired
-	private ProdutoService service;
+	private AtletaService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Produto> find(@PathVariable Integer id) {
-		Produto obj = service.find(id);
+	public ResponseEntity<Atleta> find(@PathVariable Integer id) {
+		Atleta obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<ProdutoDTO>> find(
+	public ResponseEntity<List<AtletaDTO>> find(
 			@RequestParam(value = "nome", defaultValue = "") String nome,
 			@RequestParam(value = "categorias", defaultValue = "") String categorias) {
 
 		String nomeDecoded = URL.decodeParam(nome);
 		List<Integer> cods = URL.decodeIntList(categorias);
-		List<Produto> list = service.search(nomeDecoded, cods);
-		List<ProdutoDTO> listDto = new ArrayList<ProdutoDTO>();
-		for (Produto p : list) {
-			listDto.add(new ProdutoDTO(p));
+		List<Atleta> list = service.search(nomeDecoded, cods);
+		List<AtletaDTO> listDto = new ArrayList<AtletaDTO>();
+		for (Atleta a : list) {
+			listDto.add(new AtletaDTO(a));
 		}
 		return ResponseEntity.ok().body(listDto);
 
 	}
 	
-	//INSERIR
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void>insert(@RequestBody Produto obj){
+	public ResponseEntity<Void>insert(@RequestBody Atleta obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
 				path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-
+	
 }

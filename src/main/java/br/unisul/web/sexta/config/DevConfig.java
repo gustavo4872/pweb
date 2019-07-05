@@ -1,7 +1,6 @@
 package br.unisul.web.sexta.config;
 
 import java.text.ParseException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,7 @@ import br.unisul.web.sexta.services.DbService;
 
 @Configuration
 public class DevConfig {
+	
 	@Autowired
 	private DbService dbService;
 	
